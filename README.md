@@ -21,18 +21,14 @@
     * Locate the connection string. It will look similar to this:
         ```json
         "ConnectionStrings": {
-          "DefaultConnection": "Server=.;Database=OptiPolicy;Trusted_Connection=True;MultipleActiveResultSets=true"
+          "OptiPolicy": "Server=.;Database=OptiPolicy;Trusted_Connection=True;MultipleActiveResultSets=true"
         }
         ```
-    * Modify the connection string to match your SQL Server configuration.  Here's a breakdown of common settings:
-        * `Server`:  The name of your SQL Server instance.  This might be `localhost`, `(localdb)\mssqllocaldb`, a server name, or an IP address.
-        * `Database`: The name of the database.  The `update-database` command should create this as `OptiPolicy`, so if you keep the default, it should be fine.
-        * `Trusted_Connection`:  If set to `True`, the application will attempt to use your Windows credentials to connect to the database.  If set to `False`, you'll need to provide a `User Id` and `Password` in the connection string.
 
     * **Example with SQL Server Authentication:**
         ```json
         "ConnectionStrings": {
-          "DefaultConnection": "Server=myServerAddress;Database=OptiPolicy;User Id=myUsername;Password=myPassword;MultipleActiveResultSets=true"
+          "OptiPolicy": "Server=myServerAddress;Database=OptiPolicy;User Id=myUsername;Password=myPassword;MultipleActiveResultSets=true"
         }
         ```
 
