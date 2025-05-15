@@ -21,14 +21,14 @@
     * Locate the connection string. It will look similar to this:
         ```json
         "ConnectionStrings": {
-          "OptiPolicy": "Server=.;Database=OptiPolicy;Trusted_Connection=True;MultipleActiveResultSets=true"
+          "OptiPolicy": "Server=.;Database=OptiPolicy;Trusted_Connection=True;MultipleActiveResultSets=true;"
         }
         ```
 
     * **Example with SQL Server Authentication:**
         ```json
         "ConnectionStrings": {
-          "OptiPolicy": "Server=myServerAddress;Database=OptiPolicy;User Id=myUsername;Password=myPassword;MultipleActiveResultSets=true"
+          "OptiPolicy": "Server=localhost;Database=OptiPolicy;User Id=myUsername;Password=myPassword;TrustServerCertificate=True;"
         }
         ```
 
