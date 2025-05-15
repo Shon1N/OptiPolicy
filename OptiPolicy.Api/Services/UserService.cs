@@ -46,15 +46,17 @@ namespace OptiPolicy.Api.Services
             return _mapper.Map<UserDto>(await _appDbContext.Users.Include(x => x.UserGroups.Where(x => x.DeletionDate == null)).AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId));
         }
 
-        public Task<int> GetUserCountAsync()
+        public async Task<int> GetUserCountAsync()
         {
-            return _appDbContext.Users.Where(x => x.DeletionDate == null).AsNoTracking().CountAsync();
+            return await _appDbContext.Users.Where(x => x.DeletionDate == null).AsNoTracking().CountAsync();
         }
 
-        public Task<int> GetUserCountByGroupIdAsync(int groupId)
+        public async Task<int> GetUserCountByGroupIdAsync(int groupId)
         {
-            return _appDbContext.Users.AsNoTracking()
-                .Where(x => x.UserGroups.Where(x => x.DeletionDate == null).Any(x => x.GroupId == groupId) && x.DeletionDate == null)
+            return await _appDbContext.Users
+                .Where(x => x.UserGroups.Any(x => x.DeletionDate == null && x.GroupId == groupId))
+                .Where(x => x.DeletionDate == null)
+                .AsNoTracking()
                 .CountAsync();
         }
 

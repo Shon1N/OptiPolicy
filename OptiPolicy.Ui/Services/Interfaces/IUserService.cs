@@ -9,5 +9,7 @@ namespace OptiPolicy.Ui.Services.Interfaces
         Task<Envelope<UserDto>> DeleteAsync(UserDto user);
         Task<Envelope<UserDto>> GetByIdAsync(int userId);
         Task<Envelope<IEnumerable<UserDto>>> GetAllAsync();
+        Task<Envelope<int>> GetUserCountAsync();
+        Task<Envelope<int>> GetUserCountByGroupId(int groupId);
     }
 }

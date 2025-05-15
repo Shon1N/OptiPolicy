@@ -133,5 +133,49 @@ namespace OptiPolicy.Ui.Services
                 return envelope;
             }
         }
+
+        public async Task<Envelope<int>> GetUserCountAsync()
+        {
+            var envelope = new Envelope<int>();
+            try
+            {
+                string token = _stateService.User?.Token;
+                _requestTokenService.SetUpAuthProperties(token);
+                string endpoint = $"api/{_controller}/GetUserCountAsync";
+                var response = await _httpClient.GetAsync(endpoint);
+                string dataResult = await response.Content.ReadAsStringAsync();
+                envelope = JsonConvert.DeserializeObject<Envelope<int>>(dataResult);
+                return envelope;
+            }
+            catch (Exception ex)
+            {
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
+                envelope.Message = ex.Message;
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
+                return envelope;
+            }
+        }
+
+        public async Task<Envelope<int>> GetUserCountByGroupId(int groupId)
+        {
+            var envelope = new Envelope<int>();
+            try
+            {
+                string token = _stateService.User?.Token;
+                _requestTokenService.SetUpAuthProperties(token);
+                string endpoint = $"api/{_controller}/GetUserCountByGroupId?{nameof(groupId)}={groupId}";
+                var response = await _httpClient.GetAsync(endpoint);
+                string dataResult = await response.Content.ReadAsStringAsync();
+                envelope = JsonConvert.DeserializeObject<Envelope<int>>(dataResult);
+                return envelope;
+            }
+            catch (Exception ex)
+            {
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
+                envelope.Message = ex.Message;
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
+                return envelope;
+            }
+        }
     }
 }

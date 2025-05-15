@@ -1,5 +1,21 @@
 ﻿@page "/Home"
 
-<PageTitle>Home</PageTitle>
+@using MudBlazor
+@using MudBlazor.Components
 
-<pre>Some dashboard info...</pre>
+<PageTitle>Dashboard</PageTitle>
+
+<MudPaper Class="pa-16 ma-2" Elevation="0">
+    <pre>User Count</pre>
+    <pre>@UsersCount</pre>
+</MudPaper>
+
+<MudPaper Class="pa-16 ma-2" Elevation="0">
+    <pre>Admin Group Count</pre>
+    <pre>@GroupAdminCount</pre>
+</MudPaper>
+
+<MudPaper Class="pa-16 ma-2" Elevation="0">
+    <pre>User Group Count</pre>
+    <pre>@GroupUserCount</pre>
+</MudPaper>
