@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OptiPolicy.Api.Authorization;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Shared.DataTransferObjects;
 using OptiPolicy.Api.Features.User;
 
 namespace OptiPolicy.Api.Controllers
@@ -19,6 +19,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/CreateAsync")]
         [HttpPost]
+        [Authorize(Policy = SysRole.Create)]
         public async Task<IActionResult> CreateAsync([FromBody] UserDto userDto)
         {
             var envelope = await _userCmd.CreateAsync(userDto);
@@ -27,6 +28,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/GetByIdAsync")]
         [HttpGet]
+        [Authorize(Policy = SysRole.Read)]
         public async Task<IActionResult> GetByIdAsync(int userId)
         {
             var envelope = await _userQry.GetByIdAsync(userId);
@@ -35,6 +37,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/GetAllAsync")]
         [HttpGet]
+        [Authorize(Policy = SysRole.Read)]
         public async Task<IActionResult> GetAllAsync()
         {
             var envelope = await _userQry.GetAllAsync();
@@ -43,6 +46,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/UpdateAsync")]
         [HttpPost]
+        [Authorize(Policy = SysRole.Update)]
         public async Task<IActionResult> UpdateAsync([FromBody] UserDto userDto)
         {
             var envelope = await _userCmd.UpdateAsync(userDto);
@@ -51,6 +55,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/DeleteAsync")]
         [HttpPost]
+        [Authorize(Policy = SysRole.Delete)]
         public async Task<IActionResult> DeleteAsync([FromBody] UserDto userDto)
         {
             var envelope = await _userCmd.DeleteAsync(userDto);

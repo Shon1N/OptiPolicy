@@ -9,7 +9,7 @@
         public DateTime CreationDate { get; set; }
         public int? DeletionUserId { get; set; }
         public DateTime? DeletionDate { get; set; }
-        public User User { get; set; }
+        //public User User { get; set; }
         public Group Group { get; set; }
     }
 }

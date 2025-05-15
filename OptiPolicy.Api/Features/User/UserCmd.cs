@@ -1,5 +1,5 @@
-﻿using OptiPolicy.Api.DataTransferObjects;
-using OptiPolicy.Api.Enums;
+﻿using OptiPolicy.Shared.DataTransferObjects;
+using OptiPolicy.Shared.Enums;
 using OptiPolicy.Api.Services.Interfaces;
 
 namespace OptiPolicy.Api.Features.User
@@ -19,16 +19,16 @@ namespace OptiPolicy.Api.Features.User
             {
                 user.CreationDate = DateTime.UtcNow;
                 envelope.Response = await _userService.CreateAsync(user);
-                envelope.Result = nameof(StatusDescription.Passed);
+                envelope.Result = nameof(StatusDescriptionEnum.Passed);
                 envelope.Message = "Command executed successfully.";
-                envelope.StatusCode = (int)StatusCode.Ok;
+                envelope.StatusCode = (int)StatusCodeEnum.Ok;
 
             }
             catch (Exception ex)
             {
-                envelope.Result = nameof(StatusDescription.Failed);
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
                 envelope.Message = $"{ex.Message}";
-                envelope.StatusCode = (int)StatusCode.InternalServerError;
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
             }
             return envelope;
         }
@@ -39,17 +39,18 @@ namespace OptiPolicy.Api.Features.User
             try
             {
                 user.DeletionDate = DateTime.UtcNow;
+                user.Username = user.Username + "_deleted";
                 envelope.Response = await _userService.DeleteAsync(user);
-                envelope.Result = nameof(StatusDescription.Passed);
+                envelope.Result = nameof(StatusDescriptionEnum.Passed);
                 envelope.Message = "Command executed successfully.";
-                envelope.StatusCode = (int)StatusCode.Ok;
+                envelope.StatusCode = (int)StatusCodeEnum.Ok;
 
             }
             catch (Exception ex)
             {
-                envelope.Result = nameof(StatusDescription.Failed);
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
                 envelope.Message = $"{ex.Message}";
-                envelope.StatusCode = (int)StatusCode.InternalServerError;
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
             }
             return envelope;
         }
@@ -61,16 +62,16 @@ namespace OptiPolicy.Api.Features.User
             {
                 user.ModificationDate = DateTime.UtcNow;
                 envelope.Response = await _userService.UpdateAsync(user);
-                envelope.Result = nameof(StatusDescription.Passed);
+                envelope.Result = nameof(StatusDescriptionEnum.Passed);
                 envelope.Message = "Command executed successfully.";
-                envelope.StatusCode = (int)StatusCode.Ok;
+                envelope.StatusCode = (int)StatusCodeEnum.Ok;
 
             }
             catch (Exception ex)
             {
-                envelope.Result = nameof(StatusDescription.Failed);
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
                 envelope.Message = $"{ex.Message}";
-                envelope.StatusCode = (int)StatusCode.InternalServerError;
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
             }
             return envelope;
         }

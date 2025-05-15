@@ -1,0 +1,80 @@
+﻿@page "/User"
+
+<h1>Users</h1>
+
+<div class="button-bar">
+    <button class="btn btn-success" onclick="@OpenCreateWindow">Create User</button>
+</div>
+<table class="user-grid">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Users)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Firstname</td>
+                <td>@user.Lastname</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" onclick="@(() => OpenEditWindow(user.Id))">Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="@(() => DeleteUser(user))">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (IsCreateWindowVisible)
+{
+    <UserCreate IsWindowVisible="IsCreateWindowVisible" IsWindowVisibleChanged="OnCreateWindowVisibilityChanged" CompletedSuccessfully="OnSuccessfulCompletion" />
+}
+@if (IsEditWindowVisible)
+{
+    <UserEdit IsWindowVisible="IsEditWindowVisible" IsWindowVisibleChanged="OnEditWindowVisibilityChanged" SelectedUserId="@SelectedUserId" CompletedSuccessfully="OnSuccessfulCompletion" />
+}
+
+<style>
+    .button-bar {
+        margin-bottom: 20px;
+    }
+
+    .user-grid {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .user-grid th, .user-grid td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-grid th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .user-grid tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .user-grid tbody tr:hover {
+            background-color: #e0f7fa;
+            cursor: pointer;
+        }
+
+        .user-grid tbody td button {
+            margin-right: 5px;
+        }
+</style>

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OptiPolicy.Api.Data.Interfaces;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Shared.DataTransferObjects;
 using OptiPolicy.Api.Entities;
 using OptiPolicy.Api.Services.Interfaces;
 
@@ -31,18 +31,19 @@ namespace OptiPolicy.Api.Services
             var coreUser = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
             coreUser.DeletionUserId = user.DeletionUserId;
             coreUser.DeletionDate = user.DeletionDate;
+            coreUser.Username = user.Username;
             await _appDbContext.SaveChangesAsynchronously();
             return _mapper.Map<UserDto>(coreUser);
         }
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<UserDto>>(await _appDbContext.Users.AsNoTracking().ToListAsync());
+            return _mapper.Map<IEnumerable<UserDto>>(await _appDbContext.Users.Include(x => x.UserGroups.Where(x => x.DeletionDate == null)).Where(x => x.DeletionDate == null).AsNoTracking().ToListAsync());
         }
 
         public async Task<UserDto> GetByIdAsync(int userId)
         {
-            return _mapper.Map<UserDto>(await _appDbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId));
+            return _mapper.Map<UserDto>(await _appDbContext.Users.Include(x => x.UserGroups.Where(x => x.DeletionDate == null)).AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId));
         }
 
         public async Task<UserDto> UpdateAsync(UserDto user)

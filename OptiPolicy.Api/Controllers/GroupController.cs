@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OptiPolicy.Api.Authorization;
 using OptiPolicy.Api.Features.Group;
 
 namespace OptiPolicy.Api.Controllers
@@ -15,6 +16,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/GetByIdAsync")]
         [HttpGet]
+        [Authorize(Policy = SysRole.Read)]
         public async Task<IActionResult> GetByIdAsync(int groupId)
         {
             var envelope = await _groupQry.GetByIdAsync(groupId);
@@ -23,6 +25,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/GetAllAsync")]
         [HttpGet]
+        [Authorize(Policy = SysRole.Read)]
         public async Task<IActionResult> GetAllAsync()
         {
             var envelope = await _groupQry.GetAllAsync();

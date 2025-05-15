@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Api.Authorization;
+using OptiPolicy.Shared.DataTransferObjects;
 using OptiPolicy.Api.Features.UserGroup;
 
 namespace OptiPolicy.Api.Controllers
@@ -18,6 +19,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/CreateAsync")]
         [HttpPost]
+        [Authorize(Policy = SysRole.Create)]
         public async Task<IActionResult> CreateAsync([FromBody] UserGroupDto userGroupDto)
         {
             var envelope = await _userGroupCmd.CreateAsync(userGroupDto);
@@ -26,6 +28,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/GetByIdAsync")]
         [HttpGet]
+        [Authorize(Policy = SysRole.Read)]
         public async Task<IActionResult> GetByIdAsync(int userGroupId)
         {
             var envelope = await _userGroupQry.GetByIdAsync(userGroupId);
@@ -34,6 +37,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/GetAllAsync")]
         [HttpGet]
+        [Authorize(Policy = SysRole.Read)]
         public async Task<IActionResult> GetAllAsync()
         {
             var envelope = await _userGroupQry.GetAllAsync();
@@ -42,6 +46,7 @@ namespace OptiPolicy.Api.Controllers
 
         [Route("api/[controller]/DeleteAsync")]
         [HttpPost]
+        [Authorize(Policy = SysRole.Delete)]
         public async Task<IActionResult> DeleteAsync([FromBody] UserGroupDto userGroupDto)
         {
             var envelope = await _userGroupCmd.DeleteAsync(userGroupDto);

@@ -1,16 +1,29 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@using OptiPolicy.Ui.Pages.Shared.Login;
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<CascadingAuthenticationState>
+    <AuthorizeView Policy="LoggedIn">
+        <NotAuthorized Context="Auth">
+            <Login />
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+<CascadingAuthenticationState>
+    <AuthorizeView Policy="LoggedIn">
+        <Authorized Context="Auth">
+            <div class="page">
+                <div class="sidebar">
+                    <NavMenu />
+                </div>
+                <main>
+                    <div class="top-row px-4">
+                    </div>
+                    <article class="content px-4">
+                        @Body
+                    </article>
+                </main>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>

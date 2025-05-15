@@ -1,4 +1,4 @@
-﻿using OptiPolicy.Api.DataTransferObjects;
+﻿using OptiPolicy.Shared.DataTransferObjects;
 
 namespace OptiPolicy.Api.Features.UserGroup
 {

@@ -1,5 +1,5 @@
-﻿using OptiPolicy.Api.DataTransferObjects;
-using OptiPolicy.Api.Enums;
+﻿using OptiPolicy.Shared.DataTransferObjects;
+using OptiPolicy.Shared.Enums;
 
 namespace OptiPolicy.Api.Data
 {

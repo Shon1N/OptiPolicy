@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OptiPolicy.Api.Data.Interfaces;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Shared.DataTransferObjects;
 using OptiPolicy.Api.Entities;
 using OptiPolicy.Api.Services.Interfaces;
 

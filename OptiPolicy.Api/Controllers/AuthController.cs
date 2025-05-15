@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Shared.DataTransferObjects;
 using OptiPolicy.Api.Features.Auth;
 
 namespace OptiPolicy.Api.Controllers

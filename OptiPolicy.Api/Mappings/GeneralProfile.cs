@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Shared.DataTransferObjects;
 using OptiPolicy.Api.Entities;
 
 namespace OptiPolicy.Api.Mappings

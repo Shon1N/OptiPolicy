@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using OptiPolicy.Api.Authorization.Services.Interfaces;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Shared.DataTransferObjects;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -29,7 +29,7 @@ namespace OptiPolicy.Api.Authorization.Services
 
             foreach (var permission in permissions)
             {
-                claims.Add(new Claim("role", permission));
+                claims.Add(new Claim(ClaimTypes.Role, permission));
             }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));

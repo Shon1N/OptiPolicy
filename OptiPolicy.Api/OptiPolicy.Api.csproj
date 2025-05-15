@@ -24,4 +24,8 @@
     <Folder Include="Data\Migrations\SqlServer\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OptiPolicy.Shared\OptiPolicy.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

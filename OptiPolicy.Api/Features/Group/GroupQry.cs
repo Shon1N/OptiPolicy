@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using OptiPolicy.Api.DataTransferObjects;
-using OptiPolicy.Api.Enums;
+using OptiPolicy.Shared.DataTransferObjects;
+using OptiPolicy.Shared.Enums;
 using OptiPolicy.Api.Services.Interfaces;
 
 namespace OptiPolicy.Api.Features.Group
@@ -19,15 +19,15 @@ namespace OptiPolicy.Api.Features.Group
             try
             {
                 envelope.Response = await _groupService.GetAllAsync();
-                envelope.Result = nameof(StatusDescription.Passed);
+                envelope.Result = nameof(StatusDescriptionEnum.Passed);
                 envelope.Message = "Query executed successfully.";
-                envelope.StatusCode = (int)StatusCode.Ok;
+                envelope.StatusCode = (int)StatusCodeEnum.Ok;
             }
             catch (Exception ex)
             {
-                envelope.Result = nameof(StatusDescription.Failed);
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
                 envelope.Message = $"{ex.Message}";
-                envelope.StatusCode = (int)StatusCode.InternalServerError;
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
             }
             return envelope;
         }
@@ -38,15 +38,15 @@ namespace OptiPolicy.Api.Features.Group
             try
             {
                 envelope.Response = await _groupService.GetByIdAsync(groupId);
-                envelope.Result = nameof(StatusDescription.Passed);
+                envelope.Result = nameof(StatusDescriptionEnum.Passed);
                 envelope.Message = "Query executed successfully.";
-                envelope.StatusCode = (int)StatusCode.Ok;
+                envelope.StatusCode = (int)StatusCodeEnum.Ok;
             }
             catch (Exception ex)
             {
-                envelope.Result = nameof(StatusDescription.Failed);
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
                 envelope.Message = $"{ex.Message}";
-                envelope.StatusCode = (int)StatusCode.InternalServerError;
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
             }
             return envelope;
         }

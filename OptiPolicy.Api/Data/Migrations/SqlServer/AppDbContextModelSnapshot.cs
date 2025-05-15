@@ -183,19 +183,17 @@ namespace OptiPolicy.Api.Data.Migrations.SqlServer
 
             modelBuilder.Entity("OptiPolicy.Api.Entities.GroupPermission", b =>
                 {
-                    b.HasOne("OptiPolicy.Api.Entities.Group", "Group")
+                    b.HasOne("OptiPolicy.Api.Entities.Group", null)
                         .WithMany("GroupPermissions")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("OptiPolicy.Api.Entities.Permission", "Permission")
-                        .WithMany("GroupPermissions")
+                        .WithMany()
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Group");
 
                     b.Navigation("Permission");
                 });
@@ -203,30 +201,21 @@ namespace OptiPolicy.Api.Data.Migrations.SqlServer
             modelBuilder.Entity("OptiPolicy.Api.Entities.UserGroup", b =>
                 {
                     b.HasOne("OptiPolicy.Api.Entities.Group", "Group")
-                        .WithMany("UserGroups")
+                        .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OptiPolicy.Api.Entities.User", "User")
+                    b.HasOne("OptiPolicy.Api.Entities.User", null)
                         .WithMany("UserGroups")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Group");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("OptiPolicy.Api.Entities.Group", b =>
-                {
-                    b.Navigation("GroupPermissions");
-
-                    b.Navigation("UserGroups");
-                });
-
-            modelBuilder.Entity("OptiPolicy.Api.Entities.Permission", b =>
                 {
                     b.Navigation("GroupPermissions");
                 });

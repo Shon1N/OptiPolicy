@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OptiPolicy.Api.Authorization.Services.Interfaces;
 using OptiPolicy.Api.Data.Interfaces;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Shared.DataTransferObjects;
 using OptiPolicy.Api.Services.Interfaces;
 
 namespace OptiPolicy.Api.Services
@@ -24,7 +24,7 @@ namespace OptiPolicy.Api.Services
         {
             var expiryDate = DateTime.UtcNow.AddDays(1);
             var user = _mapper.Map<UserDto>(await _appDbContext.Users
-                .Include(x => x.UserGroups)
+                .Include(x => x.UserGroups.Where(x => x.DeletionDate == null))                
                 .ThenInclude(x => x.Group)
                 .ThenInclude(x => x.GroupPermissions)
                 .ThenInclude(x => x.Permission)

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OptiPolicy.Api.Authorization;
 using OptiPolicy.Api.Authorization.Services;
 using OptiPolicy.Api.Authorization.Services.Interfaces;
 using OptiPolicy.Api.Data;
@@ -70,8 +71,8 @@ namespace OptiPolicy.Api
             services.AddScoped<IAuthQry, AuthQry>();
             services.AddScoped<IJWTTokenService, JWTTokenService>();
 
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -82,7 +83,7 @@ namespace OptiPolicy.Api
                         ValidIssuer = Configuration["AppSettings:Issuer"],
                         ValidAudience = Configuration["AppSettings:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AppSettings:Token"])),
-                        RoleClaimType = "role"
+                        RoleClaimType = ClaimTypes.Role
                     };
                 });
 
@@ -127,6 +128,9 @@ namespace OptiPolicy.Api
                     }
                     });
             });
+
+            services.AddAuthorization();
+            services.AddCustomAuthorization();
 
             services.AddCors(options =>
             {

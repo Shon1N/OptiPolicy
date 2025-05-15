@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OptiPolicy.Api.Data.Interfaces;
-using OptiPolicy.Api.DataTransferObjects;
+using OptiPolicy.Shared.DataTransferObjects;
 using OptiPolicy.Api.Entities;
 using OptiPolicy.Api.Services.Interfaces;
 
@@ -37,7 +37,7 @@ namespace OptiPolicy.Api.Services
 
         public async Task<IEnumerable<UserGroupDto>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<UserGroupDto>>(await _appDbContext.UserGroups.AsNoTracking().ToListAsync());
+            return _mapper.Map<IEnumerable<UserGroupDto>>(await _appDbContext.UserGroups.Where(x => x.DeletionDate == null).AsNoTracking().ToListAsync());
         }
 
         public async Task<UserGroupDto> GetByIdAsync(int userGroupId)
