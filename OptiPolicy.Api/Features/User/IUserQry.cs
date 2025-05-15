@@ -6,5 +6,7 @@ namespace OptiPolicy.Api.Features.User
     {
         Task<Envelope<UserDto>> GetByIdAsync(int userId);
         Task<Envelope<IEnumerable<UserDto>>> GetAllAsync();
+        Task<Envelope<int>> GetUserCountAsync();
+        Task<Envelope<int>> GetUserCountByGroupId(int groupId);
     }
 }

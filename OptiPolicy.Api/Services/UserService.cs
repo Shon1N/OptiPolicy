@@ -46,9 +46,21 @@ namespace OptiPolicy.Api.Services
             return _mapper.Map<UserDto>(await _appDbContext.Users.Include(x => x.UserGroups.Where(x => x.DeletionDate == null)).AsNoTracking().FirstOrDefaultAsync(x => x.Id == userId));
         }
 
+        public Task<int> GetUserCountAsync()
+        {
+            return _appDbContext.Users.Where(x => x.DeletionDate == null).AsNoTracking().CountAsync();
+        }
+
+        public Task<int> GetUserCountByGroupIdAsync(int groupId)
+        {
+            return _appDbContext.Users.AsNoTracking()
+                .Where(x => x.UserGroups.Where(x => x.DeletionDate == null).Any(x => x.GroupId == groupId) && x.DeletionDate == null)
+                .CountAsync();
+        }
+
         public async Task<UserDto> UpdateAsync(UserDto user)
         {
-            var coreUser = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
+            var coreUser = await _appDbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == user.Id);
             coreUser.Username = user.Username;
             coreUser.Firstname = user.Firstname;
             coreUser.Lastname = user.Lastname;

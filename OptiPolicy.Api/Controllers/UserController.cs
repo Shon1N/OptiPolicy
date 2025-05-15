@@ -44,6 +44,24 @@ namespace OptiPolicy.Api.Controllers
             return Ok(envelope);
         }
 
+        [Route("api/[controller]/GetUserCountAsync")]
+        [HttpGet]
+        [Authorize(Policy = SysRole.Read)]
+        public async Task<IActionResult> GetUserCountAsync()
+        {
+            var envelope = await _userQry.GetUserCountAsync();
+            return Ok(envelope);
+        }
+
+        [Route("api/[controller]/GetUserCountByGroupId")]
+        [HttpGet]
+        [Authorize(Policy = SysRole.Read)]
+        public async Task<IActionResult> GetUserCountByGroupIdAsync(int groupId)
+        {
+            var envelope = await _userQry.GetUserCountByGroupId(groupId);
+            return Ok(envelope);
+        }
+
         [Route("api/[controller]/UpdateAsync")]
         [HttpPost]
         [Authorize(Policy = SysRole.Update)]

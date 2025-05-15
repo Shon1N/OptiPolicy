@@ -51,5 +51,43 @@ namespace OptiPolicy.Api.Features.User
             }
             return envelope;
         }
+
+        public async Task<Envelope<int>> GetUserCountAsync()
+        {
+            var envelope = new Envelope<int>();
+            try
+            {
+                envelope.Response = await _userService.GetUserCountAsync();
+                envelope.Result = nameof(StatusDescriptionEnum.Passed);
+                envelope.Message = "Query executed successfully.";
+                envelope.StatusCode = (int)StatusCodeEnum.Ok;
+            }
+            catch (Exception ex)
+            {
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
+                envelope.Message = $"{ex.Message}";
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
+            }
+            return envelope;
+        }
+
+        public async Task<Envelope<int>> GetUserCountByGroupId(int groupId)
+        {
+            var envelope = new Envelope<int>();
+            try
+            {
+                envelope.Response = await _userService.GetUserCountByGroupIdAsync(groupId);
+                envelope.Result = nameof(StatusDescriptionEnum.Passed);
+                envelope.Message = "Query executed successfully.";
+                envelope.StatusCode = (int)StatusCodeEnum.Ok;
+            }
+            catch (Exception ex)
+            {
+                envelope.Result = nameof(StatusDescriptionEnum.Failed);
+                envelope.Message = $"{ex.Message}";
+                envelope.StatusCode = (int)StatusCodeEnum.InternalServerError;
+            }
+            return envelope;
+        }
     }
 }
