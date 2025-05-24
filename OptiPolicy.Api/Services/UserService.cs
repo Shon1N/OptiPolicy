@@ -62,7 +62,7 @@ namespace OptiPolicy.Api.Services
 
         public async Task<UserDto> UpdateAsync(UserDto user)
         {
-            var coreUser = await _appDbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == user.Id);
+            var coreUser = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
             coreUser.Username = user.Username;
             coreUser.Firstname = user.Firstname;
             coreUser.Lastname = user.Lastname;
